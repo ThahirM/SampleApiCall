@@ -9,6 +9,7 @@
 import UIKit
 
 class SearchViewController: UITableViewController {
+class SearchViewController: UITableViewController, UISearchBarDelegate {
 
     init(style: UITableViewStyle) {
         super.init(style: style)
@@ -45,6 +46,13 @@ class SearchViewController: UITableViewController {
         return cell
     }
 
+    func searchBarSearchButtonClicked(searchBar: UISearchBar!) {
+        
+        // do the search
+        searchItunesFor(searchBar.text)
+        
+        // dismiss the keyboard
+        searchBar.resignFirstResponder()
     }
     
     func searchItunesFor(searchTerm: String) {
