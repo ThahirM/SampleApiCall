@@ -46,6 +46,8 @@ class SearchCell: UITableViewCell {
 
 class SearchViewController: UITableViewController, UISearchBarDelegate {
 
+    var searchedData : NSMutableArray = []
+    
     init(style: UITableViewStyle) {
         super.init(style: style)
         // Custom initialization
@@ -57,7 +59,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -74,14 +76,12 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return 10
+        return searchedData.count
     }
 
     override func tableView(tableView: UITableView?, cellForRowAtIndexPath indexPath: NSIndexPath?) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView!.dequeueReusableCellWithIdentifier("kSearchCell", forIndexPath: indexPath) as SearchCell
+        cell.searchData = searchedData[indexPath!.row] as? NSDictionary
         return cell
     }
 
