@@ -74,6 +74,9 @@
                     <navigationItem key="navigationItem" id="jx9-Gh-SWP"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="searchBar" destination="q9T-CX-W4Y" id="Cjf-ub-eU5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cey-Sv-O9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

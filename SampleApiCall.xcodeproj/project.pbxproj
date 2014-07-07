@@ -12,6 +12,8 @@
 		C0615747196A783C00F9F3E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0615746196A783C00F9F3E9 /* Images.xcassets */; };
 		C0615753196A783C00F9F3E9 /* SampleApiCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0615752196A783C00F9F3E9 /* SampleApiCallTests.swift */; };
 		C061575D196A798000F9F3E9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061575C196A798000F9F3E9 /* SearchViewController.swift */; };
+		C0615761196A947200F9F3E9 /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0615760196A947200F9F3E9 /* SearchEngine.swift */; };
+		C0615765196AA40800F9F3E9 /* TMImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0615764196AA40800F9F3E9 /* TMImageViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		C0615751196A783C00F9F3E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0615752196A783C00F9F3E9 /* SampleApiCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleApiCallTests.swift; sourceTree = "<group>"; };
 		C061575C196A798000F9F3E9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C0615760196A947200F9F3E9 /* SearchEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
+		C0615764196AA40800F9F3E9 /* TMImageViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMImageViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				C061573D196A783C00F9F3E9 /* AppDelegate.swift */,
+				C0615764196AA40800F9F3E9 /* TMImageViewExtensions.swift */,
+				C0615760196A947200F9F3E9 /* SearchEngine.swift */,
 				C061575C196A798000F9F3E9 /* SearchViewController.swift */,
 				C0615743196A783C00F9F3E9 /* Main.storyboard */,
 				C0615746196A783C00F9F3E9 /* Images.xcassets */,
@@ -208,7 +214,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0615761196A947200F9F3E9 /* SearchEngine.swift in Sources */,
 				C061575D196A798000F9F3E9 /* SearchViewController.swift in Sources */,
+				C0615765196AA40800F9F3E9 /* TMImageViewExtensions.swift in Sources */,
 				C061573E196A783C00F9F3E9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
