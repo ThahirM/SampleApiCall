@@ -11,6 +11,7 @@
 		C0615745196A783C00F9F3E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0615743196A783C00F9F3E9 /* Main.storyboard */; };
 		C0615747196A783C00F9F3E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0615746196A783C00F9F3E9 /* Images.xcassets */; };
 		C0615753196A783C00F9F3E9 /* SampleApiCallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0615752196A783C00F9F3E9 /* SampleApiCallTests.swift */; };
+		C061575D196A798000F9F3E9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C061575C196A798000F9F3E9 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		C061574C196A783C00F9F3E9 /* SampleApiCallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleApiCallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0615751196A783C00F9F3E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0615752196A783C00F9F3E9 /* SampleApiCallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleApiCallTests.swift; sourceTree = "<group>"; };
+		C061575C196A798000F9F3E9 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				C061573D196A783C00F9F3E9 /* AppDelegate.swift */,
+				C061575C196A798000F9F3E9 /* SearchViewController.swift */,
 				C0615743196A783C00F9F3E9 /* Main.storyboard */,
 				C0615746196A783C00F9F3E9 /* Images.xcassets */,
 				C061573B196A783C00F9F3E9 /* Supporting Files */,
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C061575D196A798000F9F3E9 /* SearchViewController.swift in Sources */,
 				C061573E196A783C00F9F3E9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
