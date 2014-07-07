@@ -89,6 +89,17 @@ class SearchViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue?, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+    
+    func urlForSearchTerm(searchTerm : String) -> NSURL {
+        
+        // The iTunes API wants multiple terms separated by + symbols, so replace spaces with + signs
+        var itunesSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        
+        // Now escape anything else that isn't URL-friendly
+        var escapedSearchTerm = itunesSearchTerm.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        
+        var urlPath = "https://itunes.apple.com/search?term=\(escapedSearchTerm)&media=music"
+        return NSURL(string: urlPath)
     }
     */
 
