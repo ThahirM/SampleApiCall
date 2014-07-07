@@ -8,7 +8,42 @@
 
 import UIKit
 
-class SearchViewController: UITableViewController {
+class SearchCell: UITableViewCell {
+    
+    var searchData : NSDictionary? {
+    didSet {
+        configureCell()
+    }
+    }
+    
+    init(style: UITableViewCellStyle, reuseIdentifier: String) {
+        super.init(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
+        // Initialization code
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    func configureCell() {
+        
+        // set cell labels
+        textLabel.text = searchData!["trackName"]? as? NSString
+        detailTextLabel.text = searchData!["collectionName"]? as? NSString
+        
+        // set cell image
+        let imageUrl = NSURL.URLWithString(searchData!["artworkUrl60"] as NSString)
+        image = UIImage(data: NSData.dataWithContentsOfURL(imageUrl, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil))
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+
 class SearchViewController: UITableViewController, UISearchBarDelegate {
 
     init(style: UITableViewStyle) {
