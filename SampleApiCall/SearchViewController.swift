@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchCell: UITableViewCell {
-    
+
     var searchData : NSDictionary? {
     didSet {
         configureCell()
@@ -32,8 +32,7 @@ class SearchCell: UITableViewCell {
         detailTextLabel.text = searchData!["collectionName"]? as? NSString
         
         // set cell image
-        let imageUrl = NSURL.URLWithString(searchData!["artworkUrl60"] as NSString)
-        image = UIImage(data: NSData.dataWithContentsOfURL(imageUrl, options: NSDataReadingOptions.DataReadingMappedIfSafe, error: nil))
+        self.imageView.setImageWithUrlString((searchData!["artworkUrl60"] as NSString), placeHolderImage: UIImage(named: "Blank"))
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -44,10 +43,12 @@ class SearchCell: UITableViewCell {
     
 }
 
-class SearchViewController: UITableViewController, UISearchBarDelegate {
+class SearchViewController: UITableViewController, UISearchBarDelegate, SearchEngineDelegate {
 
     var searchedData : NSMutableArray = []
-    
+    @IBOutlet var searchBar: UISearchBar
+    @lazy var searchEngine : SearchEngine = SearchEngine(searchEngineDelegate: self)
+
     init(style: UITableViewStyle) {
         super.init(style: style)
         // Custom initialization
@@ -59,12 +60,13 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // show the search keyboard
+        searchBar.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,62 +90,20 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar!) {
         
         // do the search
-        searchItunesFor(searchBar.text)
+        searchEngine.searchEngineDelegate = self
+        searchEngine.searchItunesFor(searchBar.text)
         
         // dismiss the keyboard
         searchBar.resignFirstResponder()
     }
     
-    func searchItunesFor(searchTerm: String) {
+    func searchCompleted(results : NSArray) {
         
-        // get the url for the search term
-        var url = urlForSearchTerm(searchTerm)
+        // save the results into our data source array
+        searchedData =  results.mutableCopy() as NSMutableArray
+        
+        // reload the search tableview
+        tableView.reloadData()
+    }
 
-        // get the shared url session
-        // we use this session to do the api calls
-        var session = NSURLSession.sharedSession()
-        
-        // create a task
-        var task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-            
-            if error {
-                // If there is an error in the web request, print it to the console
-                println(error.localizedDescription)
-                return
-            }
-            
-            // parse the results into a dictionary
-            var err : NSError?
-            var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as NSDictionary
-            
-            if err? {
-                // If there is an error parsing JSON, print it to the console
-                println("JSON Error \(err!.localizedDescription)")
-                return
-            }
-            
-            // save the results into our data source array
-            self.searchedData = jsonResult["results"] as NSMutableArray
-            
-            // reload the search tableview in main thread
-            dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView.reloadData()
-                })
-            })
-        
-        // begin the task
-        task.resume()
-    }
-    
-    func urlForSearchTerm(searchTerm : String) -> NSURL {
-        
-        // The iTunes API wants multiple terms separated by + symbols, so replace spaces with + signs
-        var itunesSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
-        
-        // Now escape anything else that isn't URL-friendly
-        var escapedSearchTerm = itunesSearchTerm.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-        
-        var urlPath = "https://itunes.apple.com/search?term=\(escapedSearchTerm)&media=music"
-        return NSURL(string: urlPath)
-    }
 }
