@@ -46,7 +46,46 @@ class SearchViewController: UITableViewController {
     }
 
     }
+    
+    func searchItunesFor(searchTerm: String) {
+        
+        // get the url for the search term
+        var url = urlForSearchTerm(searchTerm)
 
+        // get the shared url session
+        // we use this session to do the api calls
+        var session = NSURLSession.sharedSession()
+        
+        // create a task
+        var task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
+            
+            if error {
+                // If there is an error in the web request, print it to the console
+                println(error.localizedDescription)
+                return
+            }
+            
+            // parse the results into a dictionary
+            var err : NSError?
+            var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as NSDictionary
+            
+            if err? {
+                // If there is an error parsing JSON, print it to the console
+                println("JSON Error \(err!.localizedDescription)")
+                return
+            }
+            
+            // save the results into our data source array
+            self.searchedData = jsonResult["results"] as NSMutableArray
+            
+            // reload the search tableview in main thread
+            dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            })
+        
+        // begin the task
+        task.resume()
     }
     
     func urlForSearchTerm(searchTerm : String) -> NSURL {
