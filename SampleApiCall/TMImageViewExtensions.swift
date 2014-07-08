@@ -27,6 +27,25 @@ class ImageCache: NSObject {
     }
 }
 
+extension UIView {
+    
+    func disableAutoresizingMask() {
+        setTranslatesAutoresizingMaskIntoConstraints(false)
+    }
+    
+    func centerHorizontallyInSuperview() {
+        disableAutoresizingMask()
+        var constraints = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.superview, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+        self.superview.addConstraint(constraints)
+    }
+    
+    func centerVerticallyInSuperview() {
+        disableAutoresizingMask()
+        var constraints = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.superview, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
+        self.superview.addConstraint(constraints)
+    }
+}
+
 extension UIImageView {
     
     func setImageWithUrlString(urlString : NSString, placeHolderImage : UIImage) {
