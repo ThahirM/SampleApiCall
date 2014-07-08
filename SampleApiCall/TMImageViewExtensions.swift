@@ -80,7 +80,13 @@ extension UIImageView {
                         ImageCache.sharedCache.setImageForKey(image!, key: url.absoluteString)
                         
                         // set the image to the imageview
+                        self.alpha = 0
                         self.image = image
+                        activityIndicatorView.stopAnimating()
+
+                        UIView.animateWithDuration(1.5, animations: { self.alpha = 1 }) { finished in
+                            
+                        }
                     }
                     else {
                         println("Error: \(error.localizedDescription)")
