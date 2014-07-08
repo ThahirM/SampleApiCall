@@ -57,6 +57,20 @@ extension UIImageView {
         // set the placeholder image
         self.image = placeHolderImage
         
+        func configureActivityIndicatorView() -> UIActivityIndicatorView {
+            let _activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+            _activityIndicatorView.hidesWhenStopped = true
+            _activityIndicatorView.startAnimating()
+            
+            return _activityIndicatorView
+        }
+        
+        // set activity indicator view
+        let activityIndicatorView = configureActivityIndicatorView()
+        self.addSubview(activityIndicatorView)
+        activityIndicatorView.centerHorizontallyInSuperview()
+        activityIndicatorView.centerVerticallyInSuperview()
+        
         // do everything in a background thread
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
@@ -86,6 +100,8 @@ extension UIImageView {
 
                         UIView.animateWithDuration(1.5, animations: { self.alpha = 1 }) { finished in
                             
+                            // hide the activity indicator
+                            activityIndicatorView.stopAnimating()
                         }
                     }
                     else {
@@ -98,6 +114,9 @@ extension UIImageView {
                 
                 // set the image if we already have it
                 self.image = image
+                
+                // hide the activity indicator
+                activityIndicatorView.stopAnimating()
             }
             })
     }
