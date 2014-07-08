@@ -47,7 +47,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, SearchEn
 
     var searchedData : NSMutableArray = []
     @IBOutlet var searchBar: UISearchBar
-    @lazy var searchEngine : SearchEngine = SearchEngine(searchEngineDelegate: self)
 
     init(style: UITableViewStyle) {
         super.init(style: style)
@@ -90,8 +89,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate, SearchEn
     func searchBarSearchButtonClicked(searchBar: UISearchBar!) {
         
         // do the search
-        searchEngine.searchEngineDelegate = self
-        searchEngine.searchItunesFor(searchBar.text)
+        SearchEngine.sharedEngine(self).searchItunesFor(searchBar.text)
         
         // dismiss the keyboard
         searchBar.resignFirstResponder()

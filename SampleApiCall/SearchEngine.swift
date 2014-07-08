@@ -8,6 +8,8 @@
 
 import UIKit
 
+let SharedEngine = SearchEngine()
+
 protocol SearchEngineDelegate {
     func searchCompleted(results : NSArray)
 }
@@ -16,7 +18,15 @@ class SearchEngine {
     
     var searchEngineDelegate : SearchEngineDelegate?
     
-    init(searchEngineDelegate : SearchEngineDelegate) {
+    class func sharedEngine(searchEngineDelegate : SearchEngineDelegate) -> SearchEngine {
+        SharedEngine.searchEngineDelegate = searchEngineDelegate
+        return SharedEngine
+    }
+    
+    init() { }
+    
+    convenience init(searchEngineDelegate : SearchEngineDelegate) {
+        self.init()
         self.searchEngineDelegate = searchEngineDelegate
     }
     
