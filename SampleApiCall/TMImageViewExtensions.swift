@@ -77,6 +77,22 @@ extension UIImageView {
             // try to get the image from the SharedImageCache
             var image: UIImage? = ImageCache.sharedCache.imageForKey(url.absoluteString) as? UIImage
             
+            // function which sets image with a fade animation
+            func setImageWithAnimation() {
+                
+                // set the image to the imageview
+                self.alpha = 0
+                self.image = image
+                activityIndicatorView.stopAnimating()
+                
+                // animate images on loading
+                UIView.animateWithDuration(1.5, animations: { self.alpha = 1 }) { finished in
+                    
+                    // hide the activity indicator
+                    activityIndicatorView.stopAnimating()
+                }
+            }
+            
             if !image? {
                 
                 // if the image does not exist, we need to download it
@@ -93,16 +109,8 @@ extension UIImageView {
                         // Store the image in to our cache
                         ImageCache.sharedCache.setImageForKey(image!, key: url.absoluteString)
                         
-                        // set the image to the imageview
-                        self.alpha = 0
-                        self.image = image
-                        activityIndicatorView.stopAnimating()
-
-                        UIView.animateWithDuration(1.5, animations: { self.alpha = 1 }) { finished in
-                            
-                            // hide the activity indicator
-                            activityIndicatorView.stopAnimating()
-                        }
+                        // set image with a fade animation
+                        setImageWithAnimation()
                     }
                     else {
                         println("Error: \(error.localizedDescription)")
@@ -112,11 +120,8 @@ extension UIImageView {
             }
             else {
                 
-                // set the image if we already have it
-                self.image = image
-                
-                // hide the activity indicator
-                activityIndicatorView.stopAnimating()
+                // set image with a fade animation
+                setImageWithAnimation()
             }
             })
     }
